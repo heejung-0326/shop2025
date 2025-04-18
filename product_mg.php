@@ -111,7 +111,7 @@
 
     <!-- 메인영역 시작 -->
     <main>
-      <section>
+      <section class="product_wrap">
         <div class="container">
           <nav>
             <ul>
@@ -121,7 +121,7 @@
             </ul>
           </nav>
           <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-12">
               <h2>상품등록</h2>
                 <?php
                   // if ($_POST['action'] == "upload" ) {
@@ -145,7 +145,7 @@
                   //   echo "<p>" . $uploaded_file_name . "을(를) 업로드하였습니다.</p>";
                   // }
                 ?>
-                <form action="./php/product_input.php" method="post" enctype="multipart/form-data" onsubmit="return form_check()">
+                <form action="./php/product_input.php" method="post" enctype="multipart/form-data" onsubmit="return form_check()" class="product">
                 <p>
                   <label for="p_cate">*카테고리</label>
                   <select name="p_cate" id="p_cate">

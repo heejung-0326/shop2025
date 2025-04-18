@@ -4,8 +4,8 @@
   $mb_id = trim($_POST['id']);
   $mb_pw = trim($_POST['pw']);//사용자 암호
 
-  echo $mb_id . '<br>';
-  echo $mb_pw;
+  //echo $mb_id . '<br>';
+  //echo $mb_pw;
 
   $sql = "SELECT * FROM members WHERE mb_id = '$mb_id'";
   $result = mysqli_query($conn, $sql);
@@ -24,9 +24,9 @@
   //$mb_password = $row[3];
   //$mb_name = $row[2];
   
-  echo '<br>';
-  echo $mb_id . '<br>';
-  echo $db_password . '<br>';
+  //echo '<br>';
+  //echo $mb_id . '<br>';
+  //echo $db_password . '<br>';
 
   if(password_verify($mb_pw, $db_password)){
     

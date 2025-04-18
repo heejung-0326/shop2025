@@ -242,16 +242,21 @@
             response = response.trim();
             if(response == 'ok'){
               $('#id_check').text('사용 가능한 아이디입니다.').css('color', 'green');
-              //id_check_done=true
+              id_check_done=true;
             }else{
               $('#id_check').text('이미 사용중인 아이디입니다.').css('color','#ff0000');
-              //id_check_done=false
+              id_check_done=false;
             }
           },
           error:function(){
             alert('서버요청 실패, 다시 시도하세요.');
           }
         });
+      });
+
+      // 아이디 값이 변경되면 다시 중복 확인 필요
+      $('#mb_id').on('input', function(){
+        id_check_done = false; 
       });
     });
 

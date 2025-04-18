@@ -292,7 +292,6 @@
 
   ChannelIO('boot', {
     "pluginKey": "313b8c22-ab75-429e-8998-f3aaf6facf86"
-    
   });
 </script>
 </body>

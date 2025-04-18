@@ -1,4 +1,6 @@
 <?php 
+	session_start();
+
   include('./db/dbconn.php'); //db연결
 	
 	//만약에 세션 아이디 값이 있다면
@@ -10,7 +12,7 @@
 		$username = ''; //name없음
 	}
 
-  $no = $_GET['no'];
+  $no = mysqli_real_escape_string($conn, $_GET['no']);
 	//echo $userid . '<br>';
 
   // 카테고리 번호 출력
@@ -36,7 +38,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="반려동물용품 쇼핑몰">
 		<meta name="author" content="STORE BOM 쇼핑몰">
-		<title>STORE BOM - 서브페이지(상품상세페이지)</title>
+		<meta property="og:title" content="<?=$name?>">
+		<meta property="og:image" content="./images/shop/<?=$img?>">
+		<meta property="og:description" content="<?=$comment?>">
+		<title>STORE BOM - <?=$name?>페이지</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/font-awesome.min.css" rel="stylesheet">
 		<link href="css/prettyPhoto.css" rel="stylesheet">
@@ -218,18 +223,27 @@
 
 									<div id="similar-product" class="carousel slide" data-ride="carousel">
 										<div class="carousel-inner">
-											<div class="item active">
 												<?php 
 													$sql = "select img, no from shop_data";
 													$result2 = mysqli_query($conn, $sql);
-													$row2 = mysqli_fetch_array($result2);
+													$count = 0;
+													$active = true;
+
 													while ($row2 = mysqli_fetch_array($result2)){
+														if ($count % 3 == 0) {
+															if ($count > 0) echo '</div>'; // 이전 item 닫기
+															echo '<div class="item' . ($active ? ' active' : '') . '">';
+															$active = false;
+														}
 												?>
-													<a href="http://127.0.0.1/shop/product_detail.php?no=<?=$row2['no']?>">
+													<a href="product_detail.php?no=<?=$row2['no']?>">
 														<img src="./images/shop/<?=$row2['img']?>" alt="" style="width:70px;height:70px;">
 													</a>
-												<?php }?>
-											</div>
+												<?php 
+													$count++;
+													}
+													if($count>0) echo '</div>';
+												?>
 										</div>
 										<!-- Controls -->
 										<a class="left item-control" href="#similar-product" data-slide="prev"><i class="fa fa-angle-left"></i>
@@ -252,7 +266,7 @@
 									<span><?=NUMBER_FORMAT($price) ?>원</span>
 									<br>
 									<label>수량:</label>
-									<input type="text" name="quantity" id="quantity" value="1" >
+									<input type="number" name="quantity" id="quantity" value="1" min="1">
 									<br>
 									<button type="submit" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
